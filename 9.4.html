@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geokoordinaten bestimmen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #btn1 {
+            background-color: orange;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function showPosition(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const coordinates = `Latitude: ${latitude}, Longitude: ${longitude}`;
+            document.getElementById("output").innerText = coordinates;
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert("Geolocation wird von Ihrem Browser nicht unterstützt.");
+            }
+        }
+
+        window.onload = function() {
+            const button = document.createElement("button");
+            button.textContent = "Finde meine Geokoordinaten";
+            button.style.backgroundColor = "orange";
+            button.style.border = "none";
+            button.style.padding = "10px 20px";
+            button.style.color = "white";
+            button.style.fontSize = "16px";
+            button.style.cursor = "pointer";
+            button.setAttribute("id", "btn1");
+            button.onclick = getLocation;
+            document.body.appendChild(button);
+
+            const output = document.createElement("div");
+            output.setAttribute("id", "output");
+            document.body.appendChild(output);
+        };
+    </script>
+</body>
+</html>
